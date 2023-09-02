@@ -47,6 +47,11 @@ const Btn = styled(Button)``;
 const AccountScreen = ({ navigation }) => {
   const items = [
     {
+      title: "Settings",
+      icon: require("../images/vector11.png"),
+      onPress: () => navigation.navigate(ROUTES.SETTINGS_DETAILS),
+    },
+    {
       title: "Orders",
       icon: require("../images/vector1.png"),
       onPress: () => console.log("Orders"),
@@ -106,21 +111,16 @@ const AccountScreen = ({ navigation }) => {
       icon: require("../images/vector6.png"),
       onPress: () => console.log("Deliver with Uber"),
     },
-    {
-      title: "Settings",
-      icon: require("../images/vector11.png"),
-      onPress: () => navigation.navigate(ROUTES.SETTINGS_DETAILS),
-    },
   ];
 
   return (
     <MainContainer>
       <Container showsVerticalScrollIndicator={false}>
         <HeaderContainer>
-          <Avatar source={require("../images/avatar.png")} />
+          {/* <Avatar source={require("../images/avatar.png")} />
           <UserInfo>
             <UserName>John Doe</UserName>
-          </UserInfo>
+          </UserInfo> */}
         </HeaderContainer>
         {items.map((item) => (
           <SettingsCard
