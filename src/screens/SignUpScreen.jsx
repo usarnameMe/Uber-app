@@ -61,31 +61,36 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const userLogged = useContext(UpdateUserContext);
+  const { userLogged } = useContext(UpdateUserContext);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
 
   const handleSignUp = async () => {
-    if (!email || !password || !confirmPassword) {
-      setSnackBarMessage("All fields must be filled!");
-      setSnackBarVisible(true);
-      return;
-    }
-    if (email === "" || confirmPassword === "") {
-      setSnackBarMessage("Enter passwords to signup!");
-      setSnackBarVisible(true);
-      return;
-    }
+    try {
+      if (!email || !password || !confirmPassword) {
+        setSnackBarMessage("All fields must be filled!");
+        setSnackBarVisible(true);
+        return;
+      }
+      if (email === "" || confirmPassword === "") {
+        setSnackBarMessage("Enter passwords to signup!");
+        setSnackBarVisible(true);
+        return;
+      }
 
-    if (password !== confirmPassword) {
-      setSnackBarMessage("Passwords do not match!");
-      setSnackBarVisible(true);
-      return;
-    }
+      if (password !== confirmPassword) {
+        setSnackBarMessage("Passwords do not match!");
+        setSnackBarVisible(true);
+        return;
+      }
 
-    await userLogged({ email, password });
-    setSnackBarMessage(`Account created for ${email}!`);
-    setSnackBarVisible(true);
+      await userLogged({ email, password });
+      setSnackBarMessage(`Account created for ${email}!`);
+      setSnackBarVisible(true);
+    } catch (error) {
+      setSnackBarMessage(`An error occurred: ${error.message}`);
+      setSnackBarVisible(true);
+    }
   };
 
   const onDismissSnackBar = () => {
